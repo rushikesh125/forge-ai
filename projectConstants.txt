@@ -1,0 +1,22 @@
+STATEMENT 6 :❖
+DESCRIPTION :
+The goal of this project is to develop a web-based AI-powered resume
+optimization tool that can:
+Parse resumes from different formats (PDF, DOCX, etc.).
+Compare the content with job descriptions to identify key skills, job
+requirements, and missing keywords.
+Provide personalized suggestions on improving the resume’s content,
+structure, and formatting for better alignment with job requirements.
+Offer an intuitive and user-friendly interface for job seekers, allowing them to
+upload their resumes easily and receive actionable feedback.
+➢
+There is a need for a smart, web-based tool that can assist job seekers by analyzing
+their resumes, comparing them against job descriptions, and providing AI-driven
+suggestions to improve content, formatting, and alignment with specific job roles. This
+tool should be able to identify missing skills or keywords, propose better phrasing, and
+ensure the resume is tailored to specific job opportunities, improving the chances of
+passing through Applicant Tracking Systems (ATS) and impressing recruiters.
+
+
+
+theme-color -> bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500  bg-clip-text text-transparent
