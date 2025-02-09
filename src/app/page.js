@@ -2,7 +2,6 @@ import NavBar from "@/components/Navbar";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Timeline } from "@/components/ui/timeline";
-import { Cover } from "@/components/ui/conver";
 // import img from "next/img";
 export default function Home() {
   const timelineData = [
@@ -201,11 +200,9 @@ export default function Home() {
                 <span className="">Forge Ai</span>
               </div> */}
               {/* <br/> */}
-              <Cover>
               <div className="relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 ">
                 <span className="">Forge Ai</span>
               </div>
-              </Cover>
             </div>
           </h2>
         </BackgroundBeamsWithCollision>
