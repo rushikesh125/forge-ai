@@ -58,14 +58,14 @@ const NavBar = () => {
               className="text-xl flex items-center font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-500 hover:to-purple-500 transition-all duration-300"
             >
               <div className="flex items-center gap-2">
-                <motion.span
+                {/* <motion.span
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
                   transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                   className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-3xl"
-                >
+                > */}
                   ⚡
-                </motion.span>
+                {/* </motion.span> */}
                 <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
                   Forge Ai
                 </h1>
