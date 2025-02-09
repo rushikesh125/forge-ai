@@ -190,7 +190,7 @@ export default function Home() {
       >
         <NavBar />
         <BackgroundBeamsWithCollision
-          className={`relative min-h-screen w-full`}
+          className={`relative min-h-[70vh] md:min-h-[80vh] w-full`}
         >
           <div className="absolute h-52 w-52 lg:h-80 lg:w-80 bg-gradient-to-r from-pink-400 to-violet-500 rounded-full z-20 blur-[110px]"></div>
           <h2 className="text-2xl relative z-20 md:text-4xl lg:text-7xl font-bold text-center text-black dark:text-white font-sans tracking-tight">
