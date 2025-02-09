@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon, LogIn } from "lucide-react";
+import { Menu, X, Sun, Moon, LogIn, BrainCircuit } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const NavBar = () => {
@@ -54,9 +54,10 @@ const NavBar = () => {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-500 hover:to-purple-500 transition-all duration-300"
+              className="text-xl flex items-center font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-500 hover:to-purple-500 transition-all duration-300"
             >
-              YourLogo
+              <BrainCircuit color="#8000ff" className="inline-block p-1 w-10 h-10 "/>
+             Forge Ai
             </Link>
           </div>
 
@@ -117,12 +118,12 @@ const NavBar = () => {
               )}
             </button>
             <Link
-            href="/login"
-            className="flex items-center space-x-2 px-4 py-2 rounded-full text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg transition-all duration-300 mt-2"
-          >
-            <LogIn className="w-4 h-4" />
-            <span>Login</span>
-          </Link>
+              href="/login"
+              className="flex items-center space-x-2 px-4 py-2 rounded-full text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg transition-all duration-300 mt-2"
+            >
+              <LogIn className="w-4 h-4" />
+              <span>Login</span>
+            </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -159,9 +160,8 @@ const NavBar = () => {
               {link.name}
             </Link>
           ))}
-          
+
           {/* Login Link in Mobile Menu */}
-          
         </div>
       </div>
     </nav>
