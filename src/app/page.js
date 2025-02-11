@@ -1,5 +1,4 @@
 import NavBar from "@/components/Navbar";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Timeline } from "@/components/ui/timeline";
 import FeaturesSection from "@/components/FeatureSection";

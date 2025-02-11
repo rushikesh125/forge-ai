@@ -1,19 +1,15 @@
-
+"use client"
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
-
-
-export const metadata = {
-  title: "Forge Ai ",
-  description: "Forge ai",
-};
+import { Provider } from "react-redux";
+import store from "@/store/store";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={` antialiased`}
-      >
-        {children}
+      <body className={` antialiased`}>
+        <Provider store={store}>{children}</Provider>
+        <Toaster />
       </body>
     </html>
   );

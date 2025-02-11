@@ -6,6 +6,11 @@ import { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon, LogIn, BrainCircuit } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase/config";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser, setUser } from "@/store/userSlice";
+import UserDropdown from "./UserDropdown";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +18,8 @@ const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -34,6 +40,23 @@ const NavBar = () => {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        let tempuser = {
+          uid: user?.uid,
+          displayName: user?.displayName,
+          email: user?.email,
+          photoURL: user?.photoURL,
+        };
+        dispatch(setUser(tempuser));
+      } else {
+        dispatch(clearUser());
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const navigationLinks = [
     { name: "Home", href: "/" },
@@ -64,8 +87,7 @@ const NavBar = () => {
                   transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                   className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-3xl"
                 > */}
-                  ⚡
-                {/* </motion.span> */}
+                ⚡{/* </motion.span> */}
                 <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
                   Forge Ai
                 </h1>
@@ -107,13 +129,17 @@ const NavBar = () => {
             </button>
 
             {/* Login Link */}
-            <Link
-              href="/login"
-              className="flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg transition-all duration-300"
-            >
-              <LogIn className="w-4 h-4" />
-              <span>Login</span>
-            </Link>
+            {!user ? (
+              <Link
+                href="/login"
+                className="flex items-center space-x-2 px-4 py-2 rounded-full text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg transition-all duration-300 mt-2"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Login</span>
+              </Link>
+            ) : (
+              <UserDropdown user={user}/>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -129,13 +155,17 @@ const NavBar = () => {
                 <Moon className="w-5 h-5" />
               )}
             </button>
-            <Link
-              href="/login"
-              className="flex items-center space-x-2 px-4 py-2 rounded-full text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg transition-all duration-300 mt-2"
-            >
-              <LogIn className="w-4 h-4" />
-              <span>Login</span>
-            </Link>
+            {!user ? (
+              <Link
+                href="/login"
+                className="flex items-center space-x-2 px-4 py-2 rounded-full text-base font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg transition-all duration-300 mt-2"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Login</span>
+              </Link>
+            ) : (
+              <UserDropdown user={user}/>
+            )}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
