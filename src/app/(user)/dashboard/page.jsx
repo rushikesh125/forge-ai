@@ -14,13 +14,16 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import UserDropdown from "@/components/UserDropdown";
+import { useSelector } from "react-redux";
+import DashNav from "@/components/DashNav";
 
 const Dashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState("dashboard");
   const drawerRef = useRef(null);
-
+  const user = useSelector(state=>state.user)
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
@@ -74,13 +77,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between h-16 px-4">
           <Link href={`/`}>
             <div className="flex items-center gap-2">
-              {/* <motion.span
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                  className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-3xl"
-                > */}
-              ⚡{/* </motion.span> */}
+            
               <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
                 Forge Ai
               </h1>
@@ -126,48 +123,7 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="md:ml-64">
         {/* Top Navigation */}
-        <header
-          className={`
-          fixed top-0 right-0 z-30 w-full md:w-[calc(100%-16rem)]
-          ${
-            isDarkMode
-              ? "bg-gray-800 border-gray-700"
-              : "bg-white border-gray-200"
-          }
-          border-b h-16
-        `}
-        >
-          <div className="flex items-center justify-between h-full px-4">
-            <button className="md:hidden" onClick={toggleMenu}>
-              <Menu
-                className={`w-6 h-6 ${
-                  isDarkMode ? "text-white" : "text-gray-800"
-                }`}
-              />
-            </button>
-
-            <div className="flex items-center space-x-4">
-              <button className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                <Bell
-                  className={`w-6 h-6 ${
-                    isDarkMode ? "text-white" : "text-gray-800"
-                  }`}
-                />
-              </button>
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                {isDarkMode ? (
-                  <Sun className="w-6 h-6 text-white" />
-                ) : (
-                  <Moon className="w-6 h-6 text-gray-800" />
-                )}
-              </button>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500" />
-            </div>
-          </div>
-        </header>
+        <DashNav toggleTheme={toggleTheme} isDarkMode={isDarkMode} toggleMenu={toggleMenu}/>
 
         {/* Main Content Area */}
         <main
