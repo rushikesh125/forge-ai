@@ -1,3 +1,4 @@
+
 import NavBar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Timeline } from "@/components/ui/timeline";

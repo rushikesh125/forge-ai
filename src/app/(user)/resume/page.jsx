@@ -1,35 +1,27 @@
-"use client";
+import ResumeUploader from "@/components/dashcomponents/ResumeUploader";
+import { FileUp } from "lucide-react";
+import React from "react";
 
-import ResumeDashboard from "@/components/ResumeDashboard";
-
-const Dashboard = () => {
-  const stats = [
-    { label: "Total Users", value: "12,345", change: "+12%" },
-    { label: "Revenue", value: "$45,678", change: "+8%" },
-    { label: "Active Projects", value: "48", change: "+15%" },
-    { label: "Conversion Rate", value: "2.4%", change: "+5%" },
-  ];
+const page = () => {
   return (
     <main className="pt-20 p-4 text-gray-800 dark:text-white">
       <div className="max-w-7xl mx-auto">
         {/* Stats Grid */}
-        <ResumeDashboard/>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg"
-            >
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {stat.label}
-              </p>
-              <div className="flex items-center justify-between mt-2">
-                <p className="text-2xl font-bold">{stat.value}</p>
-                <span className="text-green-500 text-sm">{stat.change}</span>
-              </div>
-            </div>
-          ))}
+        <ResumeUploader />
+        <div className="bg-white dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-80 p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+            Job Description
+          </h2>
+          <textarea
+            className="w-full h-40 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
+            placeholder="Paste the job description here..."
+          ></textarea>
+          <button className="mt-4 w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700">
+            Compare with Resume
+          </button>
         </div>
+
+        {/* {error && <p className="text-red-500 text-center mt-4">{error}</p>} */}
 
         {/* Content Panels */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -71,4 +63,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default page;
