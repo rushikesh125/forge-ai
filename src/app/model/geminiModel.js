@@ -141,7 +141,7 @@ const parseResume = async (resumeText) => {
     const result = await model.generateContent(
       `Parse the following resume into a structured format: ${resumeText}`
     );
-    return result.response.text();
+    return result.response.text()
   } catch (error) {
     console.error("Error parsing resume:", error);
     throw error;

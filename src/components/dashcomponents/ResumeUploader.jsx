@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import CustomBtn from "../CustomBtn";
 import { useSelector } from "react-redux";
 import { insertUserResume } from "@/firebase/users/write";
+import { parseResume } from "@/app/model/geminiModel";
 
 export default function ResumeUploader() {
   const [resume, setResume] = useState(null);
@@ -71,18 +72,20 @@ export default function ResumeUploader() {
 
       try {
         setStatus("Generating Digial Resume...")
-        const resumeRes = await fetch("./api/forge-resume", {
-          method: "POST",
-          body: JSON.stringify({
-            resumeText: textResume,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const userResume = await resumeRes.json();
-        console.log(userResume.data);
-        await insertUserResume({uid:user?.uid,data:userResume?.data})
+        // const resumeRes = await fetch("./api/forge-resume", {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     resumeText: textResume,
+        //   }),
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // });
+        // const userResume = await resumeRes.json();
+        const userResume = JSON.parse(await parseResume(textResume))
+        console.log(userResume );
+        console.log(typeof userResume );
+        await insertUserResume({uid:user?.uid,data:userResume})
         toast.success("User Profile Generated Successfully");
         setStatus("Generated Successfully ✅ , please check in User Profile")
       } catch (error) {

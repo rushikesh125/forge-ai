@@ -14,8 +14,11 @@ export const createUser = async({ uid, user }) => {
 };
 
 export const insertUserResume = async({uid,data})=>{
+  if(!data){
+    throw new Error("No Data for Insert in DB {insertUserResume}fn")
+  }
   await setDoc(doc(db,`users/${uid}`),{
-    resume:{...data},
+    resume:data,
     createdAt:Timestamp.now(),
   },{
     merge:true

@@ -133,28 +133,28 @@ const ResumeDashboard = ({ data }) => {
             <div className="text-center mb-4">
               <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-600 via-violet-600 to-pink-600 
                             bg-clip-text text-transparent">
-                {data.personalInfo.name}
+                {data.personalInfo?.name}
               </h1>
               <div className="flex flex-wrap justify-center gap-4 text-gray-600 dark:text-gray-300">
                 <a href={`mailto:${data.personalInfo.email}`} 
                    className="flex items-center gap-1 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                   <Mail className="w-4 h-4" />
-                  <span>{data.personalInfo.email}</span>
+                  <span>{data.personalInfo?.email}</span>
                 </a>
                 {data.personalInfo.phone && (
                   <span className="flex items-center gap-1">
                     <Phone className="w-4 h-4" />
-                    <span>{data.personalInfo.phone}</span>
+                    <span>{data.personalInfo?.phone}</span>
                   </span>
                 )}
-                {data.personalInfo.linkedin && (
+                {data.personalInfo?.linkedin && (
                   <a href={`https://${data.personalInfo.linkedin}`} 
                      className="flex items-center gap-1 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                     <Linkedin className="w-4 h-4" />
                     <span>LinkedIn</span>
                   </a>
                 )}
-                {data.personalInfo.portfolio && (
+                {data.personalInfo?.portfolio && (
                   <a href={data.personalInfo.portfolio.startsWith('http') ? data.personalInfo.portfolio : `https://${data.personalInfo.portfolio}`}
                      className="flex items-center gap-1 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                     <Globe className="w-4 h-4" />
@@ -169,7 +169,7 @@ const ResumeDashboard = ({ data }) => {
         {/* Summary Section */}
         <HalfCard>
           {renderSection("Professional Summary", 
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{data.summary}</p>,
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{data?.summary}</p>,
             "summary"
           )}
         </HalfCard>
@@ -178,7 +178,7 @@ const ResumeDashboard = ({ data }) => {
       {/* Skills Section */}
       {renderSection("Skills",
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.skills.categories.map(({ category, skills }) => (
+          {data.skills?.categories?.map(({ category, skills }) => (
             <div key={category} className="space-y-2">
               <h3 className="font-semibold text-gray-700 dark:text-gray-300 capitalize flex items-center gap-2">
                 {skillCategoryIcons[category] && React.createElement(skillCategoryIcons[category], {
@@ -194,17 +194,17 @@ const ResumeDashboard = ({ data }) => {
       )}
 
       {/* Projects Section */}
-      {data.projects.length > 0 && renderSection("Projects",
+      {data.projects?.length > 0 && renderSection("Projects",
         <div className="space-y-6">
           {data.projects.map((project) => (
-            <div key={project.title} className="border-b border-gray-200 last:border-b-0 pb-4 last:pb-0">
+            <div key={project?.title} className="border-b border-gray-200 last:border-b-0 pb-4 last:pb-0">
               <h3 className="font-semibold text-lg bg-gradient-to-r from-purple-600 via-violet-600 to-pink-600 
                            bg-clip-text text-transparent mb-2">
-                {project.title}
+                {project?.title}
               </h3>
-              {project.details && project.details.length > 0 && (
+              {project?.details && project.details?.length > 0 && (
                 <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                  {project.details.map((detail, index) => (
+                  {project?.details?.map((detail, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <Star className="w-4 h-4 mt-1 flex-shrink-0 text-purple-600 dark:text-purple-400" />
                       <span>{detail}</span>
@@ -212,9 +212,9 @@ const ResumeDashboard = ({ data }) => {
                   ))}
                 </ul>
               )}
-              {project.technologies && (
+              {project?.technologies && (
                 <div className="mt-4">
-                  {renderSkillBadges(project.technologies)}
+                  {renderSkillBadges(project?.technologies)}
                 </div>
               )}
             </div>
