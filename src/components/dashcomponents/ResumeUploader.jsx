@@ -5,13 +5,14 @@ import CustomBtn from "../CustomBtn";
 import { useSelector } from "react-redux";
 import { insertUserResume } from "@/firebase/users/write";
 import { parseResume } from "@/app/model/geminiModel";
+import { Settings } from "lucide-react";
 
 export default function ResumeUploader() {
   const [resume, setResume] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [status,setStatus] = useState(null)
-  const user = useSelector(state=>state.user)
+  const [status, setStatus] = useState(null);
+  const user = useSelector((state) => state.user);
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -48,7 +49,7 @@ export default function ResumeUploader() {
     formData.append("resume", resume);
 
     setIsLoading(true);
-    setStatus("Processing...")
+    setStatus("Processing...");
     try {
       const response = await fetch(
         "https://forge-ai-api.vercel.app/api/resumetext",
@@ -71,7 +72,7 @@ export default function ResumeUploader() {
       console.log(textResume);
 
       try {
-        setStatus("Generating Digial Resume...")
+        setStatus("Generating Digial Resume...");
         // const resumeRes = await fetch("./api/forge-resume", {
         //   method: "POST",
         //   body: JSON.stringify({
@@ -82,12 +83,12 @@ export default function ResumeUploader() {
         //   },
         // });
         // const userResume = await resumeRes.json();
-        const userResume = JSON.parse(await parseResume(textResume))
-        console.log(userResume );
-        console.log(typeof userResume );
-        await insertUserResume({uid:user?.uid,data:userResume})
+        const userResume = JSON.parse(await parseResume(textResume));
+        console.log(userResume);
+        console.log(typeof userResume);
+        await insertUserResume({ uid: user?.uid, data: userResume });
         toast.success("User Profile Generated Successfully");
-        setStatus("Generated Successfully ✅ , please check in User Profile")
+        setStatus("Generated Successfully ✅ , please check in User Profile");
       } catch (error) {
         setError(`error::${error?.message}`);
       }
@@ -127,7 +128,13 @@ export default function ResumeUploader() {
             </p>
           )}
         </div>
-        <div className="p-1 text-green-400">{status && status}</div>
+
+        {status && (
+          <div className="p-1 text-green-400 flex justify-center ">
+            
+            {isLoading && <Settings className="animate-spin" />} {status}
+          </div>
+        )}
         <CustomBtn
           isLoading={isLoading}
           onClick={handleUpload}
