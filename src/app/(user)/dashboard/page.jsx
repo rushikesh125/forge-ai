@@ -1,71 +1,149 @@
 "use client";
 
-import ResumeDashboard from "@/components/ResumeDashboard";
+import CircularLoader from "@/app/loading";
+import ResumeDashboard from "@/components/dashcomponents/ResumeDashboard";
+import { getResume } from "@/firebase/users/read";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const user = useSelector((state) => state.user);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [resumeData, setResumeData] = useState(null);
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      try {
+        const res = await getResume({ uid: user?.uid });
+        setResumeData(res);
+        console.log(res);
+      } catch (error) {
+        console.log("error", error);
+        toast.error(error);
+        setError(
+          "roadmap is not generated please generate roadmap form assessment"
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [user]);
   const stats = [
     { label: "Total Users", value: "12,345", change: "+12%" },
     { label: "Revenue", value: "$45,678", change: "+8%" },
     { label: "Active Projects", value: "48", change: "+15%" },
     { label: "Conversion Rate", value: "2.4%", change: "+5%" },
   ];
+  //   const resumeData = {
+  //     "education": [
+  //         {
+  //             "degree": "Bachelor of Technology in Mechanical Engineering",
+  //             "graduation": "2024",
+  //             "school": "National Institute of Technology (NIT), Pune"
+  //         }
+  //     ],
+  //     "personalInfo": {
+  //         "name": "Amit Sharma",
+  //         "email": "amitsharma@example.com",
+  //         "phone": "+91 98765-12345",
+  //         "portfolio": null
+  //     },
+  //     "skills": {
+  //         "categories": [
+  //             {
+  //                 "category": "Design & Simulation",
+  //                 "skills": [
+  //                     "AutoCAD",
+  //                     "SolidWorks",
+  //                     "CATIA",
+  //                     "ANSYS"
+  //                 ]
+  //             },
+  //             {
+  //                 "category": "Manufacturing",
+  //                 "skills": [
+  //                     "CNC Machining",
+  //                     "Injection Molding",
+  //                     "Lean Manufacturing"
+  //                 ]
+  //             },
+  //             {
+  //                 "category": "Thermal & Fluid Dynamics",
+  //                 "skills": [
+  //                     "CFD",
+  //                     "Heat Transfer",
+  //                     "Thermodynamics"
+  //                 ]
+  //             },
+  //             {
+  //                 "category": "Programming & Automation",
+  //                 "skills": [
+  //                     "MATLAB",
+  //                     "Python",
+  //                     "Arduino"
+  //                 ]
+  //             },
+  //             {
+  //                 "category": "Quality Control",
+  //                 "skills": [
+  //                     "Six Sigma",
+  //                     "Failure Mode and Effects Analysis (FMEA)"
+  //                 ]
+  //             }
+  //         ]
+  //     },
+  //     "summary": "Dedicated Mechanical Engineer with expertise in CAD design, manufacturing processes, and quality control. Strong analytical skills and hands-on experience in product design, automation, and prototyping.",
+  //     "certifications": [
+  //         "Six Sigma Green Belt (2024)",
+  //         "AutoCAD & SolidWorks Certified Professional (2023)"
+  //     ],
+  //     "experience": [
+  //         {
+  //             "achievements": [
+  //                 "Assisted in designing automotive components for fuel efficiency.",
+  //                 "Conducted stress analysis for new prototypes.",
+  //                 "Collaborated with the R&D team for electric vehicle projects."
+  //             ],
+  //             "company": "Tata Motors, Pune",
+  //             "period": "Summer 2024",
+  //             "title": "Mechanical Engineer Intern"
+  //         }
+  //     ],
+  //     "extracurricular": [
+  //         "Member, SAE India (Society of Automotive Engineers)",
+  //         "Won Best Design Award in National Robotics Competition (2023)",
+  //         "Volunteer for technical workshops in rural schools"
+  //     ],
+  //     "projects": [
+  //         {
+  //             "details": [
+  //                 "Designed and optimized a conveyor system using SolidWorks and MATLAB.",
+  //                 "Increased production efficiency by 25% through automation"
+  //             ],
+  //             "title": "Automated Conveyor Belt System"
+  //         },
+  //         {
+  //             "details": [
+  //                 "Developed an innovative cooling mechanism for EV batteries.",
+  //                 "Conducted CFD analysis to optimize heat dissipation"
+  //             ],
+  //             "title": "Electric Vehicle Battery Cooling System"
+  //         }
+  //     ]
+  // }
+  if (isLoading) {
+    return <CircularLoader />;
+  }
   return (
     <main className="pt-20 p-4 text-gray-800 dark:text-white">
       <div className="max-w-7xl mx-auto">
         {/* Stats Grid */}
-        <ResumeDashboard/>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg"
-            >
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {stat.label}
-              </p>
-              <div className="flex items-center justify-between mt-2">
-                <p className="text-2xl font-bold">{stat.value}</p>
-                <span className="text-green-500 text-sm">{stat.change}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Content Panels */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Recent Activity</h2>
-            <div className="space-y-4">
-              {[1, 2, 3].map((item) => (
-                <div
-                  key={item}
-                  className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700"
-                >
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-green-500 mr-2" />
-                    <p className="text-sm">User activity {item}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="p-6 rounded-lg bg-white dark:bg-gray-800 shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {["Add User", "Create Project", "View Reports", "Settings"].map(
-                (action) => (
-                  <button
-                    key={action}
-                    className="p-4 rounded-lg text-left bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200"
-                  >
-                    {action}
-                  </button>
-                )
-              )}
-            </div>
-          </div>
-        </div>
+        {resumeData && <ResumeDashboard data={resumeData} />}
+        {!resumeData && (
+          <div> No resume found , please upload resume first <Link href={`/resume`} className="text-blue-500">Go Here</Link> </div>
+        )}
       </div>
     </main>
   );

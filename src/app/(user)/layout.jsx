@@ -136,7 +136,7 @@ const UserLayout = ({ children }) => {
               return (
                 <button
                   key={item.id}
-                  onClick={() =>{ setActiveTab(item.id); router.push(`${item.link}`)}}
+                  onClick={() =>{ setActiveTab(item.id); router.push(`${item.link}`); setIsMenuOpen(false)}}
                   className={`
                   flex items-center w-full px-4 py-3 mb-2 rounded-lg
                   ${

@@ -12,3 +12,12 @@ export const createUser = async({ uid, user }) => {
       }
   );
 };
+
+export const insertUserResume = async({uid,data})=>{
+  await setDoc(doc(db,`users/${uid}`),{
+    resume:{...data},
+    createdAt:Timestamp.now(),
+  },{
+    merge:true
+  })
+}
