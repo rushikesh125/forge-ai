@@ -43,3 +43,16 @@ export const insertUserResumeReview = async ({ uid, data }) => {
     { merge: true }
   );
 };
+export const insertJobSuggestions = async ({ uid, data }) => {
+  if (!data) {
+    throw new Error("No Data for Insert in DB {insertJobSuggestions}");
+  }
+  await setDoc(
+    doc(db, `users/${uid}`),
+    {
+      job_suggestions: data,
+      createdAt: Timestamp.now(),
+    },
+    { merge: true }
+  );
+};

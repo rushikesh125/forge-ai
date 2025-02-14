@@ -19,3 +19,11 @@ export const getResumeReview = async ({uid})=>{
     return null;
   }
 }
+export const getJobSuggestions = async ({uid})=>{
+  const res = await getDoc(doc(db,`users/${uid}`));
+  if(await res.exists()){
+    return res.data()?.job_suggestions;
+  }else{
+    return null;
+  }
+}

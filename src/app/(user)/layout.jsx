@@ -74,7 +74,7 @@ const UserLayout = ({ children }) => {
   const menuItems = [
     { link:"/dashboard",id: "User Profile", label: "User Profile", icon: Users },
     { link:"/resume",id: "Resume Analyze", label: "Resume Analyze", icon: TextSelect },
-    { link:"/dashboard",id: "Job Suggestions", label: "Job Suggestions", icon: TextSearch },
+    { link:"/jobsuggestions",id: "Job Suggestions", label: "Job Suggestions", icon: TextSearch },
     { link:"/dashboard",id: "ForgeBot", label: "ForgeBot", icon: Bot },
     { link:"/dashboard",id: "settings", label: "Settings", icon: Settings },
   ];
