@@ -136,7 +136,7 @@ const model = genAI.getGenerativeModel({
 });
 
 // Example usage
-const parseResume = async (resumeText) => {
+const generateDigitalResume = async (resumeText) => {
   try {
     const result = await model.generateContent(
       `Parse the following resume into a structured format: ${resumeText}`
@@ -148,4 +148,4 @@ const parseResume = async (resumeText) => {
   }
 };
 
-export { parseResume, resumeSchema };
+export { generateDigitalResume, resumeSchema };

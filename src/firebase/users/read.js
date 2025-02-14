@@ -7,6 +7,15 @@ export const getResume = async ({ uid }) => {
     return res.data()?.resume;
   } else {
     return null;
-    // throw new Error("Assessment is Not Submitted");
   }
 };
+
+
+export const getResumeReview = async ({uid})=>{
+  const res = await getDoc(doc(db,`users/${uid}`));
+  if(await res.exists()){
+    return res.data()?.resume_review;
+  }else{
+    return null;
+  }
+}

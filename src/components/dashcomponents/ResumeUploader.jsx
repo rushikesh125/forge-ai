@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import CustomBtn from "../CustomBtn";
 import { useSelector } from "react-redux";
 import { insertUserResume } from "@/firebase/users/write";
-import { parseResume } from "@/app/model/geminiModel";
+import { generateDigitalResume } from "@/app/model/geminiModel";
 import { Settings } from "lucide-react";
 
 export default function ResumeUploader() {
@@ -83,7 +83,7 @@ export default function ResumeUploader() {
         //   },
         // });
         // const userResume = await resumeRes.json();
-        const userResume = JSON.parse(await parseResume(textResume));
+        const userResume = JSON.parse(await generateDigitalResume(textResume));
         console.log(userResume);
         console.log(typeof userResume);
         await insertUserResume({ uid: user?.uid, data: userResume });

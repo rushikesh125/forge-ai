@@ -2,6 +2,7 @@
 
 import CircularLoader from "@/app/loading";
 import ResumeDashboard from "@/components/dashcomponents/ResumeDashboard";
+import ResumeReview from "@/components/dashcomponents/ResumeReview";
 import { getResume } from "@/firebase/users/read";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -141,6 +142,7 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto">
         {/* Stats Grid */}
         {resumeData && <ResumeDashboard data={resumeData} />}
+        {resumeData && <ResumeReview data={resumeData}/>}
         {!resumeData && (
           <div> No resume found , please upload resume first <Link href={`/resume`} className="text-blue-500">Go Here</Link> </div>
         )}
