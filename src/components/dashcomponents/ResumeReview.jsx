@@ -57,7 +57,7 @@ const ResumeReview = ({ data }) => {
         isLoading={isLoading}
         className={`my-2 py-1 px-2 rounded-full border bg-purple-200 dark:bg-transparent border-purple-400 mx-auto`}
       >
-        ✨{resumeReview ? "ReGenerate Ai Based Review":"Generate Ai Based Review"}
+        ✨{resumeReview ? "ReGenerate Ai Based Review & Suggestion":"Generate Ai Based Review & Suggestion"}
       </CustomBtn>
     </>
   );
