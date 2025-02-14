@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Star,
   TrendingUp,
@@ -7,10 +7,16 @@ import {
   Gauge,
   ArrowUpRight,
   ChevronRight,
-  GaugeCircle
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from './ResumeDashboard';
-
+  GaugeCircle,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  HalfCard,
+} from "./ResumeDashboard";
+import RatingCircle from "../RatingCircle";
 
 const ResumeReviewDisplay = ({ reviewData }) => {
   const {
@@ -18,71 +24,78 @@ const ResumeReviewDisplay = ({ reviewData }) => {
     general_feedback,
     strengths,
     improvements,
-    final_verdict
+    final_verdict,
   } = reviewData;
 
   return (
-    <div className="max-w-4xl mx-auto p-2 space-y-6">
+    <div className="max-w-4xl mx-auto p-2 space-y-6 ">
       {/* Header Section */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-4">
-          <GaugeCircle className="w-8 h-8 text-purple-500" />
-          <div>
+      <div className="space-y-4 dark:bg-gray-800 rounded-lg p-2">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-evenly gap-4 ">
+          <div className="">
+            
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-              Resume Review Score: {overall_rating}/10
+            <GaugeCircle className="w-8 h-8 text-purple-500 inline-block" /> Resume Review Score
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-300">
               Expected after improvements: {final_verdict.improved_rating}/10
             </p>
           </div>
+          {overall_rating && <RatingCircle rating={overall_rating} />}
         </div>
       </div>
 
       {/* General Feedback Card */}
-      <Card className="border border-purple-200 dark:border-purple-900 dark:bg-gray-800">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-purple-500" />
-            <span className="bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-              General Feedback
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-700 dark:text-gray-300">{general_feedback}</p>
-        </CardContent>
-      </Card>
+      <div className="w-full lg:flex gap-6">
+        <HalfCard className="border border-purple-200 dark:border-purple-900 dark:bg-gray-800">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-purple-500" />
+              <span className="bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+                General Feedback
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-700 dark:text-gray-300">
+              {general_feedback}
+            </p>
+          </CardContent>
+        </HalfCard>
 
-      {/* Strengths Section */}
-      <Card className="border border-purple-200 dark:border-purple-900 dark:bg-gray-800">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Star className="w-5 h-5 text-purple-500" />
-            <span className="bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-              Key Strengths
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {strengths.map((strength, idx) => (
-              <div key={idx} className="space-y-2">
-                <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">
-                  {strength.title}
-                </h3>
-                <ul className="space-y-2">
-                  {strength.points.map((point, pointIdx) => (
-                    <li key={pointIdx} className="flex items-start gap-2">
-                      <ChevronRight className="w-4 h-4 mt-1 text-purple-500 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+        {/* Strengths Section */}
+        <HalfCard className="border border-purple-200 dark:border-purple-900 dark:bg-gray-800">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-purple-500" />
+              <span className="bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+                Key Strengths
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {strengths.map((strength, idx) => (
+                <div key={idx} className="space-y-2">
+                  <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">
+                    {strength.title}
+                  </h3>
+                  <ul className="space-y-2">
+                    {strength.points.map((point, pointIdx) => (
+                      <li key={pointIdx} className="flex items-start gap-2">
+                        <ChevronRight className="w-4 h-4 mt-1 text-purple-500 flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {point}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </HalfCard>
+      </div>
 
       {/* Improvements Section */}
       <Card className="border border-purple-200 dark:border-purple-900 dark:bg-gray-800">
@@ -97,19 +110,26 @@ const ResumeReviewDisplay = ({ reviewData }) => {
         <CardContent>
           <div className="space-y-6">
             {improvements.map((improvement, idx) => (
-              <div key={idx} className="space-y-3 pb-4 border-b border-purple-100 dark:border-purple-800 last:border-0">
+              <div
+                key={idx}
+                className="space-y-3 pb-4 border-b border-purple-100 dark:border-purple-800 last:border-0"
+              >
                 <div className="flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-purple-500" />
                   <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">
                     {improvement.section}
                   </h3>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 pl-7">{improvement.feedback}</p>
+                <p className="text-gray-700 dark:text-gray-300 pl-7">
+                  {improvement.feedback}
+                </p>
                 <ul className="space-y-2 pl-7">
                   {improvement.suggestions.map((suggestion, sugIdx) => (
                     <li key={sugIdx} className="flex items-start gap-2">
                       <ArrowUpRight className="w-4 h-4 mt-1 text-purple-500 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{suggestion}</span>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {suggestion}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -134,7 +154,9 @@ const ResumeReviewDisplay = ({ reviewData }) => {
             {final_verdict.improvements_applied.map((improvement, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <ChevronRight className="w-4 h-4 mt-1 text-purple-500 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">{improvement}</span>
+                <span className="text-gray-700 dark:text-gray-300">
+                  {improvement}
+                </span>
               </li>
             ))}
           </ul>
