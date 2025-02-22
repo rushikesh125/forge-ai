@@ -7,10 +7,14 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import CircularLoader from "@/app/loading";
 import { getResume } from "@/firebase/users/read";
+import { ResumeNJdAnalysis } from "@/app/model/ResJDCompare";
+import { insertResJdComparison } from "@/firebase/users/write";
+import JdAnalysis from "./JdAnalysis";
 
-export default function JobDescriptionInput({ onCompare }) {
+export default function JobDescriptionInput() {
   const [resumeData, setResumeData] = useState(null);
   const [jobDescription, setJobDescription] = useState("");
+  const [JDanalysis, setJDanalysis] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(null);
@@ -42,6 +46,33 @@ export default function JobDescriptionInput({ onCompare }) {
     setError(null);
   };
 
+  const handleResumeNJdComparison = async () => {
+    if (!resumeData) {
+      throw new Error("No Resume Data Found!");
+    }
+    if (!jobDescription) {
+      throw new Error("No Job Description Found");
+    }
+    try {
+      setIsLoading(true);
+
+      const res = await ResumeNJdAnalysis(resumeData, jobDescription);
+      const jd_temp = JSON.parse(await res)
+      setJDanalysis(jd_temp)
+      //   console.log(res);
+      try {
+        await insertResJdComparison({ uid: user?.uid, data: jd_temp });
+        toast.success("Job Description Analysis Created Successfully");
+      } catch (error) {
+        toast.error(error?.message);
+        console.log("error", error);
+      }
+    } catch (error) {
+      toast.error("Error::", error?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   //   if(isLoading){
   //     return <CircularLoader/>
   //   }
@@ -68,11 +99,14 @@ export default function JobDescriptionInput({ onCompare }) {
       )}
       {/* Compare Button */}
       <CustomBtn
+        onClick={handleResumeNJdComparison}
         className="mt-4 w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg dark:bg-purple-600 dark:hover:bg-purple-700 flex items-center justify-center"
         isLoading={isLoading}
       >
         Compare Resume with Job Description
       </CustomBtn>
+      <hr/>
+      {JDanalysis && <JdAnalysis data={JDanalysis}/>}
     </div>
   );
 }

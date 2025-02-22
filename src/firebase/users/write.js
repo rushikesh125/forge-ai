@@ -56,3 +56,16 @@ export const insertJobSuggestions = async ({ uid, data }) => {
     { merge: true }
   );
 };
+
+export const insertResJdComparison = async ({ uid, data }) => {
+  if (!uid || !data) {
+    throw new Error("No UId or data to insert {insertResJdComparison}");
+  }
+  await setDoc(
+    doc(db, `users/${uid}`),
+    {
+      resume_jd_analysis: data,
+    },
+    { merge: true }
+  );
+};
