@@ -22,6 +22,8 @@ import {
   TextSelect,
   TextSearch,
   Bot,
+  FileSliders,
+  CircleFadingArrowUpIcon,
 } from "lucide-react";
 import Link from "next/link";
 import UserDropdown from "@/components/UserDropdown";
@@ -76,7 +78,10 @@ const UserLayout = ({ children }) => {
     { link:"/resume",id: "Resume Analyze", label: "Resume Analyze", icon: TextSelect },
     { link:"/jobsuggestions",id: "Job Suggestions", label: "Job Suggestions", icon: TextSearch },
     { link:"/forgebot",id: "ForgeBot", label: "ForgeBot", icon: Bot },
+    { link:"/atsanalysis",id: "ats", label: "ATS Analysis", icon: FileSliders },
+    { link:"/improveskills",id: "improveskills", label: "Improve Skills", icon: CircleFadingArrowUpIcon },
     { link:"/dashboard",id: "settings", label: "Settings", icon: Settings },
+
   ];
 
   const stats = [

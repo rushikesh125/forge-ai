@@ -46,7 +46,7 @@ const JdAnalysis = ({ data }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-2">
       <motion.div 
         className="max-w-7xl mx-auto space-y-8"
         variants={containerVariants}
@@ -87,14 +87,15 @@ const JdAnalysis = ({ data }) => {
                   transition={{ duration: 1.5, ease: "easeOut" }}
                   style={{ transformOrigin: "center", transform: "rotate(-90deg)" }}
                 />
-              </svg>
-              <defs>
+                  <defs>
                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#8B5CF6" />
                   <stop offset="50%" stopColor="#7C3AED" />
                   <stop offset="100%" stopColor="#EC4899" />
                 </linearGradient>
               </defs>
+              </svg>
+            
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <span className="text-4xl font-bold bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
                   {overall_match_percentage}%
@@ -130,7 +131,7 @@ const JdAnalysis = ({ data }) => {
                     className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300"
                   >
                     <MapPinCheck className="h-5 w-5 text-purple-500" />
-                    <span>{candidate_info.location}</span>
+                    <span>{candidate_info?.location}</span>
                   </motion.div>
                   <motion.div 
                     whileHover={{ scale: 1.02 }}

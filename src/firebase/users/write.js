@@ -69,3 +69,16 @@ export const insertResJdComparison = async ({ uid, data }) => {
     { merge: true }
   );
 };
+
+export const insertATSAnalysis = async ({ uid, data }) => {
+  if (!uid || !data) {
+    throw new Error("No UId or data to insert {insertResJdComparison}");
+  }
+  await setDoc(
+    doc(db, `users/${uid}`),
+    {
+      ats_analysis: data,
+    },
+    { merge: true }
+  );
+};

@@ -3,8 +3,7 @@ import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 // Initialize the API
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
-
-const resumeAnalysisSchema = {
+const ATSAnalysisSchema = {
   description: "Resume analysis data structure",
   type: SchemaType.OBJECT,
   properties: {
@@ -104,7 +103,7 @@ const resumeAnalysisSchema = {
               "growth_opportunities",
               "remote_or_onsite",
               "job_market_demand",
-              "required_skills_and_gaps",
+              "required_skills_and_gaps", 
               "certifications_needed",
               "overall_fit_score"
             ]
@@ -127,30 +126,29 @@ const resumeAnalysisSchema = {
   },
   required: ["resume_analysis"]
 };
-
 // Configure the model
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
   generationConfig: {
     responseMimeType: "application/json",
-    responseSchema: resumeAnalysisSchema,
+    responseSchema: ATSAnalysisSchema,
   },
 });
 
 // Example usage
-const jobSuggestion = async (resumeData) => {
-  const resData = JSON.stringify(resumeData)
-  console.log(resData);
-  
-  try {
-    const result = await model.generateContent(
-      `${resData} understand this resume , and provide your job recommedation response , also remember to Provide minimum 5 job recommendations if you can provide more then its good must inlude them. Base all scores and recommendations on current industry standards. Ensure salary ranges and skill requirements are realistic and market-appropriate.`
-    );
-    return result.response.text()
-  } catch (error) {
-    console.error("Error Generating resume review:", error);
-    throw error;
-  }
+const GenerateATSAnalysis = async (resumeData) => {
+    const resData = JSON.stringify(resumeData)
+    console.log(resData);
+    
+    try {
+      const result = await model.generateContent(
+        `${resData} Analyze This Resume From ATS Perspecitve and Jude it on Different Parameters `
+      );
+      return result.response.text()
+    } catch (error) {
+      console.error("Error Generating resume review:", error);
+      throw error;
+    }
 };
 
-export { jobSuggestion, resumeAnalysisSchema };
+export { GenerateATSAnalysis, ATSAnalysisSchema };

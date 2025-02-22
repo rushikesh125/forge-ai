@@ -30,7 +30,15 @@ export const getJobSuggestions = async ({uid})=>{
 export const getJDanalysis = async ({uid})=>{
   const res = await getDoc(doc(db,`users/${uid}`));
   if(await res.exists()){
-    return res.data()?.job_suggestions;
+    return res.data()?.resume_jd_analysis;
+  }else{
+    return null;
+  }
+}
+export const getATSAnalysis = async ({uid})=>{
+  const res = await getDoc(doc(db,`users/${uid}`));
+  if(await res.exists()){
+    return res.data()?.ats_analysis;
   }else{
     return null;
   }

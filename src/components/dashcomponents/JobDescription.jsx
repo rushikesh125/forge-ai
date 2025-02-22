@@ -6,7 +6,7 @@ import CustomBtn from "../CustomBtn";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import CircularLoader from "@/app/loading";
-import { getResume } from "@/firebase/users/read";
+import { getJDanalysis, getResume } from "@/firebase/users/read";
 import { ResumeNJdAnalysis } from "@/app/model/ResJDCompare";
 import { insertResJdComparison } from "@/firebase/users/write";
 import JdAnalysis from "./JdAnalysis";
@@ -39,6 +39,21 @@ export default function JobDescriptionInput() {
       }
     })();
   }, [user]);
+
+  useEffect(()=>{
+    (async()=>{
+      try {
+        const jd_read = await getJDanalysis({uid:user?.uid});
+      console.log('jdddd',jd_read);
+      if(jd_read){
+        setJDanalysis(jd_read)
+        // console.log(JSON.stringify(jd_read))
+      }
+      } catch (error) {
+        toast.error("failed to get ResumeReview")
+      }
+    })();
+  },[user])
 
   const clearFile = () => {
     setJobDescription("");
@@ -77,6 +92,7 @@ export default function JobDescriptionInput() {
   //     return <CircularLoader/>
   //   }
   return (
+    <>
     <div className="bg-white dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-80 p-6 rounded-lg shadow-lg">
       <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
         Job Description{" "}
@@ -105,8 +121,9 @@ export default function JobDescriptionInput() {
       >
         Compare Resume with Job Description
       </CustomBtn>
-      <hr/>
-      {JDanalysis && <JdAnalysis data={JDanalysis}/>}
+      <hr />
     </div>
+      {JDanalysis && <JdAnalysis data={JDanalysis}/>}
+    </>
   );
 }
