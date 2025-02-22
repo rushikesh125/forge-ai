@@ -1,7 +1,9 @@
 "use client";
 import { GenerateSkillsSuggestion } from "@/app/model/skillsuggestion";
 import CustomBtn from "@/components/CustomBtn";
+import SkillRecommendations from "@/components/dashcomponents/SkillSuggestion";
 import { getResume } from "@/firebase/users/read";
+
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -52,6 +54,7 @@ const ImproveSkills = () => {
           >
             ✨ Suggest Ai Based Skills Improvement
           </CustomBtn>
+          {skillSuggestion && <SkillRecommendations  skillData={skillSuggestion}/>}
         </div>
       </main>
     </>
@@ -59,3 +62,11 @@ const ImproveSkills = () => {
 };
 
 export default ImproveSkills;
+
+
+
+// import React from 'react';
+// import { motion } from 'framer-motion';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+// import { Progress } from '@/components/ui/progress';
+// import { BookOpen, Code, DollarSign, Clock, Award, Users, Laptop } from 'lucide-react';
